@@ -1,0 +1,32 @@
+#!/bin/bash
+# Update uInitrd
+echo "update-initramfs: Converting to u-boot format" >&2
+UINITRD="/boot/uInitrd-$1"
+mkimage -A arm -O linux -T ramdisk -C none -a 0 -e 0 -n uInitrd -d $2 ${UINITRD} >/dev/null
+ln -sf $(basename ${UINITRD}) /boot/uInitrd > /dev/null 2>&1
+
+# Check zImage
+unset cmd
+cmd=$(pwd)
+cd /boot
+if [ -f /boot/vmlinuz-$1 ]; then
+    if [ -f /boot/zImage ]; then
+	rm -rf /boot/zImage
+    fi
+    ln -sf vmlinuz-$1 zImage
+fi
+
+# Check dtb directory
+if [ -d /usr/lib/linux-image-$1 ]; then
+    cp -a /usr/lib/linux-image-$1 /boot/dtb-$1
+    if [ -d /boot/dtb ]; then
+	rm -rf /boot/dtb
+    fi
+    ln -sf dtb-$1 dtb 
+fi
+# Check boot.cmd
+if [ -f /boot/boot.cmd ]; then
+    mkimage -c none -A arm -T script -d /boot/boot.cmd /boot/boot.scr   
+fi
+cd $cmd
+exit 0

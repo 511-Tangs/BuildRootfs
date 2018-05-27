@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+version="$1"
+if [ -d /boot/dtb-$version ]; then
+    rm -rf /boot/dtb-$version
+fi
+
+if [ -f /boot/uInitrd-$version ]; then
+    rm -rf /boot/uInitrd-$version
+fi

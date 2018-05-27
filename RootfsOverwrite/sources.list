@@ -1,0 +1,5 @@
+deb [ arch=armhf ] http://amd1m/merged jessie main contrib 
+deb [ arch=armhf ] http://amd1m/merged jessie-updates main contrib 
+deb [ arch=armhf ] http://amd1m/merged jessie-backports main contrib
+deb [ arch=armhf ] http://amd1m/merged jessie-security main contrib 
+

@@ -1,0 +1,25 @@
+#!/bin/bash
+echo $1 |grep [0-9] &>/dev/null
+if [ "$?" -eq "0" ]; then
+    Type='p' # Partition
+else
+    Type='d' # Disk
+fi
+DEV=$( sed 's/[0-9]//g' <<< $1)
+which hdparm &>/dev/null
+if [ "$?" -ne "0"  ]; then
+    echo "2"
+    exit 127
+fi
+
+sudo  /sbin/hdparm -I /dev/$DEV |grep 'Solid State Device' &>/dev/null
+if [ "$?" -ne "0" ]; then
+    return=$(sed 's/sd[a-z]/hdd/g' <<< $1 )
+#    echo "hdd"
+else
+    return=$(sed 's/sd[a-z]/ssd/g' <<< $1 )
+#    echo "ssd"
+fi
+
+echo $return
+#sudo ln -s /dev/$1 /dev/$return

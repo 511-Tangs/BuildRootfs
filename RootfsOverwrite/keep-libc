@@ -1,0 +1,7 @@
+Package: libc6
+Pin: release a=stable
+Pin-Priority: 2000
+
+Package: openssh-server
+Pin: release a=stable
+Pin-Priority: 2000

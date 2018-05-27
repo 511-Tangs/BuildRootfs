@@ -1,0 +1,45 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:      SafeRemoveAllUsbDevice    
+# Required-Start:
+# Required-Stop:     umountroot
+# Default-Start:
+# Default-Stop:      0 6
+# Short-Description: Turn off all usb device by safety remove.
+# Description:
+### END INIT INFO
+function UsbRemove() {
+# Find all usb device map
+UsbMap=($(find /sys/bus/usb/devices/ -type 'l' -name "usb*"))
+UsbLen=${#UsbMap[@]}
+# Ether card path
+NetMap=$(readlink -f /sys/class/net/eth0/ |sed 's/\//\n/g' |sed '/^$/d' |grep ^usb)
+for path in ${UsbMap[@]}; do
+    # Read link path
+    Path=$(readlink -f $path |sed 's/\//\n/g' |sed '/^$/d'| grep ^usb)
+    # Match Ether card, then ans = yes
+    if [ "${NetMap}" == "${Path}" ]; then
+	# Do nothing
+	continue
+    else
+    # Remove usb without Usb ether card 
+	if [ -f $path/remove ]; then
+	    echo "1" |tee $path/remove
+	fi
+    fi
+done
+}
+
+case $1 in
+    start|status)
+    # No-op
+    ;;
+      restart|reload|force-reload)
+      echo "Error: argument '$1' not supported" >&2
+      exit 3
+    ;;stop)
+      UsbRemove
+    ;;*)
+      echo "Usage: $0 stop" >&2
+      exit 3
+esac

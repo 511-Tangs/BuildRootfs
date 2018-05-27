@@ -1,0 +1,5 @@
+rootdev=/dev/mmcblk1p2
+rootfstype=ext4
+verbosity=8
+# IPaddress:NFSserverIP:GatewayIP:Netmask:Hostname:ethercard
+ips=192.168.0.1::192.168.0.254:255.255.255.0::eth0

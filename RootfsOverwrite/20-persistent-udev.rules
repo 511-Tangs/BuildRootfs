@@ -1,0 +1,8 @@
+# Get all disk an value tag ssd or hdd
+# Using disk S.M.A.R.T Info to select disk type is  SSD or HD
+# %k means KERNEL name, ex: KERNEL=="sda", %k = sda
+# Using PROGRAM and RESULT to match disk type
+# hdd and ssd means disk like sda, sdb and disk type is hard disk or Solid State Device
+# hdp and ssdp means partition like sda1, sda2 
+# This rule at /etc/udev/rules.d/
+KERNEL=="sd*", PROGRAM="/usr/local/bin/usbname %k", SYMLINK="%c"

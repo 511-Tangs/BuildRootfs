@@ -1,0 +1,18 @@
+Package: systemd-sysv
+Pin: release o=Debian
+Pin-Priority: -1
+
+Package: libsystemd0
+Pin: release o=Debian
+Pin-Priority: -1
+
+Package: *systemd*
+Pin: release o=Debian
+Pin-Priority: -1
+Package: libc6
+Pin: release a=stable
+Pin-Priority: 2000
+
+Package: openssh-server
+Pin: release a=stable
+Pin-Priority: 2000

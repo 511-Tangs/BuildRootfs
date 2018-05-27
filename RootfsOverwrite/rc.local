@@ -1,0 +1,36 @@
+#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will "exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+# By default this script does nothing.
+if [ -f /etc/nologin ]; then
+    echo "Login lock with message :$(cat /etc/nologin)" |tee /dev/kmsg
+    rm -f /etc/nologin
+fi
+
+/usr/local/bin/control_fan.sh change 50 100
+#/etc/init.d/ntp stop
+/usr/sbin/ntpdate 140.120.1.2
+#Replace USB port 5 using CPU#1 cores 
+echo 1 |tee /proc/irq/155/smp_affinity_list
+#Replace USB port 6 using CPU#2 cores 
+echo 2 |tee /proc/irq/154/smp_affinity_list
+# Remove ads7846 modules
+if lsmod |grep ads7846 &>/dev/null ;then
+    modprobe -r ads7846 
+fi
+
+# Reload udev rules
+udevadm trigger
+
+#Mount ssd on /src4
+mount /dev/ssd1 /src4
+
+exit 0

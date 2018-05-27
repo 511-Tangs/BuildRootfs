@@ -1,0 +1,15 @@
+# This file is used to create partition table for target system.
+# This sample is using eMMC with 64 GB.
+# Using this command to create partition list 
+# more than three partition, need to let last space as extended
+# we using fdisk to create partition table
+# PartitionNumber : PartitionName : PartitionStartSector : PartitionEndSector : PartitionFormat
+1:boot:8192:+512M:ext2
+2:root:1056768:+2560M:ext4
+3:usr:6299648:+9G:ext4
+e:extended:25174016:122142719:none
+5:var:25176064:+9G:ext4
+6:usrlocal:44052480:+9G:ext4
+7:tmp:62928896:+9G:ext4
+8:home:81805312:+9G:ext4
+9:src1:100681728:122142719:ext4
