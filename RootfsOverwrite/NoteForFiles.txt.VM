@@ -1,4 +1,4 @@
-Files_name : Files_directory
+Files_name : Directory_file_resided_in
 01-uboot : /etc/initramfs/post-update.d/
 05translations : /etc/apt/apt.conf.d/
 avoid-systemd : /etc/apt/preferences.d/
