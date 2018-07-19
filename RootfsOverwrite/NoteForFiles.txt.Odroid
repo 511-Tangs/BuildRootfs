@@ -33,5 +33,3 @@ SafeRemoveAllUsbDevice : /etc/init.d/
 sudoers : /etc/
 20-persistent-udev.rules : /etc/udev/rules.d/
 usbname : /usr/local/bin/
-preferences :  /etc/apt/preferences.d/
-preferences :  /etc/apt/

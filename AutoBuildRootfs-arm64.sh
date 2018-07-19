@@ -28,9 +28,9 @@ fi
 
 
 Mirror="http://amd1m/merged"
-Distro="ascii"
+Distro="jessie"
 # Arch
-Arch=armhf
+Arch=arm64
 
 # Get Root permission
 echo "Super user permission test"
@@ -64,7 +64,7 @@ if [ "$Space" -lt "8" ]; then
 fi
 
 # Testing binfmt_misc module
-if [ -f /usr/bin/qemu-arm-static ]; then
+if [ -f /usr/bin/qemu-aarch64-static ]; then
 
     lsmod|grep binfmt_misc &>/dev/null
     if [ "$?" -ne "0" ]; then
@@ -89,7 +89,7 @@ mkdir -p ${Date}
 echo "Start first stage of debootstrap rootfs."
 ${SUDO} debootstrap --foreign --arch=$Arch --include=$(tr " " "," <<<$BasePkg ) --exclude=udev $Distro $Date $Mirror
 # Setting ARM type
-${SUDO} cp /usr/bin/qemu-arm-static $Date/usr/bin/
+${SUDO} cp /usr/bin/qemu-aarch64-static $Date/usr/bin/
 
 #Secondary stage
 echo "start secondary stage of debootstrap rootfs."

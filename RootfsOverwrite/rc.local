@@ -17,7 +17,7 @@ fi
 
 /usr/local/bin/control_fan.sh change 50 100
 #/etc/init.d/ntp stop
-/usr/sbin/ntpdate 140.120.1.2
+/usr/sbin/ntpdate 140.120.?.?
 #Replace USB port 5 using CPU#1 cores 
 echo 1 |tee /proc/irq/155/smp_affinity_list
 #Replace USB port 6 using CPU#2 cores 
