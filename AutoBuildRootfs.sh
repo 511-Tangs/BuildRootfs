@@ -28,7 +28,7 @@ fi
 
 
 Mirror="http://amd1m/merged"
-Distro="ascii"
+Distro="jessie"
 # Arch
 Arch=armhf
 
